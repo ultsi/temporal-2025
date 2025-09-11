@@ -51,7 +51,10 @@ static func replay_node(node: Node3D, tick := -1) -> bool:
 	if !state || !state.valid:
 		return false
 
-	node.global_position = state.position
+	var dist := node.global_position.distance_to(state.position)
+	if dist > 1.0:
+		print("reseted replay node's position as it had drifted too far. node {0}, dist: {1}".format([node, dist]))
+		node.global_position = state.position
 	node.rotation = state.rotation
 
 	if node is Player:

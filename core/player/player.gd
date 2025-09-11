@@ -19,7 +19,7 @@ static var player: Player
 var health := 100
 const MAX_ECHOS := 1
 var echos: Array[Player] = []
-var replay_states := ReplayStates.new(0, 0, 4, 1)
+var replay_states := ReplayStates.new(1, 0, 4, 1)
 
 const JUMP_IMPULSE := 50
 const TERMINAL_VELOCITY := -100.0
@@ -29,7 +29,8 @@ const MAX_SPEED := 17
 
 var is_echo := false
 
-var _r_attack_press
+var _r_direction := Vector2.ZERO
+var _r_attack_pressed := false
 
 var _last_step_pos := Vector3.ZERO
 var _last_step_tick := -1000
@@ -39,10 +40,10 @@ var _next_anim_tick := -1000
 var _last_hurt_at := -1000
 var _last_attack2_tick := -1000
 var _last_dash_tick := -1000
-var direction := Vector2.ZERO
 var _spawn_pos := Vector3.ZERO
 var _hurt_energy := Vector3.ZERO
 var _multimesh: MultiMesh
+var _cur_replay_state: ReplayStates.State
 
 func _ready() -> void:
 	_spawn_pos = global_position
@@ -126,22 +127,29 @@ func do_dash(dir: Vector2) -> void:
 	velocity.y = snapped_direction.y * 35
 	audio_dash.play()
 
+func _get_input_direction() -> Vector2:
+	if is_echo:
+		return _r_direction
+	return Input.get_vector("move_left", "move_right", "move_down", "move_up")
+
+func _get_attack_pressed() -> bool:
+	if is_echo:
+		return _r_attack_pressed
+	return Input.is_action_pressed("attack")
 
 func _on_tick(tick: int, immune_tick := false) -> void:
 	if is_echo:
 		Replay.replay_node(self, tick)
 		sprite.transparency = 0.9
-		return
-	elif !immune_tick && Replay.replay_node(self, tick):
+	else:
 		sprite.transparency = 0.0
-		return
 	
 	var actions: Dictionary[String, AnimAction] = {}
-	direction = Input.get_vector("move_left", "move_right", "move_down", "move_up")
+	_r_direction = _get_input_direction()
 	if health <= 0:
-		direction = Vector2.ZERO
-	elif direction != Vector2.ZERO:
-		_face_dir(direction)
+		_r_direction = Vector2.ZERO
+	elif _r_direction != Vector2.ZERO:
+		_face_dir(_r_direction)
 
 	sprite.transparency = 0.0
 
@@ -163,13 +171,13 @@ func _on_tick(tick: int, immune_tick := false) -> void:
 		if is_in_dash:
 			velocity = velocity.normalized() * 40
 
-		var attack_mode := Input.is_action_pressed("attack")
+		var attack_mode := _get_attack_pressed()
 		if can_attack && attack_mode:
 			# modify to be generic so we can swap bows as we wish
-			var action := bow.use_press(direction)
+			var action := bow.use_press(_r_direction)
 			actions[action.anim] = action
 		elif time - _last_attack_tick > 50:
-			velocity += Vector3(direction.x, 0, 0) * ACCEL * C.TIME_BETWEEN_TICKS
+			velocity += Vector3(_r_direction.x, 0, 0) * ACCEL * C.TIME_BETWEEN_TICKS
 
 		if (absf(velocity.x) > MAX_SPEED):
 			if is_on_floor() || (!is_in_dash && !is_on_floor()):
@@ -178,7 +186,7 @@ func _on_tick(tick: int, immune_tick := false) -> void:
 		if !is_on_floor():
 			if !gravity_after_dash:
 				velocity.y -= GRAVITY * C.TIME_BETWEEN_TICKS
-				if direction.length_squared() < 0.01:
+				if _r_direction.length_squared() < 0.01:
 					velocity.x *= 0.5
 
 			if Input.is_action_just_released("jump") && velocity.y > 0.0:
@@ -190,14 +198,14 @@ func _on_tick(tick: int, immune_tick := false) -> void:
 					actions["jump"] = AnimAction.new("jump")
 		else:
 			_last_on_floor_tick = tick
-			if !is_in_dash && direction.length_squared() < 0.01 || attack_mode:
+			if !is_in_dash && _r_direction.length_squared() < 0.01 || attack_mode:
 				velocity.x *= 0.1
 			if Input.is_action_just_pressed("jump"):
 				do_jump()
 				actions["jump"] = AnimAction.new("jump")
 
 		if Input.is_action_just_pressed("dash") && ready_to_dash:
-			do_dash(direction)
+			do_dash(_r_direction)
 
 		## REFACTOR
 		## bow.can_use() to be a part of the player
@@ -207,7 +215,7 @@ func _on_tick(tick: int, immune_tick := false) -> void:
 		## maybe echo objects can be replayed
 		## like arrows could become echos as well with some skill
 		if Input.is_action_just_released("attack") && can_attack:
-			var action := bow.use_release(direction)
+			var action := bow.use_release(_r_direction)
 			actions[action.anim] = action
 			_last_attack_tick = tick
 			
@@ -228,28 +236,36 @@ func _on_tick(tick: int, immune_tick := false) -> void:
 	#print("saving replay state ", tick)
 	Replay.save_replay_state(self, tick)
 	
-	if !is_echo:
-		move_and_slide()
-		animate(actions)
+	move_and_slide()
+	animate(actions)
 
 
 func replay_state(state: ReplayStates.State) -> void:
-	var tick := T.get_tick(self)
 	sprite.animation = state.animation
 	_last_dash_tick = state.ints[0]
 	_last_on_floor_tick = state.ints[1]
 	_last_attack_tick = state.ints[2]
 	_last_hurt_at = state.ints[3]
-	direction = state.vector2s[0]
+	_r_direction = state.vector2s[0]
 
-	if _last_attack_tick == tick:
-		bow.use_release(direction)
+	_r_attack_pressed = state.flags[0]
+
+	_cur_replay_state = state
 
 
 func save_state(state: ReplayStates.State) -> void:
 	state.animation = sprite.animation
-	state.ints = [_last_dash_tick, _last_on_floor_tick, _last_attack_tick, _last_hurt_at]
-	state.vector2s = [direction]
+	state.ints = [
+		_last_dash_tick,
+		_last_on_floor_tick,
+		_last_attack_tick,
+		_last_hurt_at
+	]
+	state.vector2s = [_r_direction]
+
+	state.flags = [
+		_r_attack_pressed
+	]
 
 
 func show_flux_past() -> void:
