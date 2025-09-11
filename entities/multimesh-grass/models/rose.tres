@@ -1,0 +1,76 @@
+[gd_resource type="ArrayMesh" load_steps=6 format=4 uid="uid://cijjihojo3bod"]
+
+[ext_resource type="Shader" path="res://entities/multimesh-grass/rose_flower.gdshader" id="1_alugb"]
+[ext_resource type="Shader" path="res://entities/multimesh-grass/rose_root.gdshader" id="1_llsmc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_plotj"]
+render_priority = 0
+shader = ExtResource("1_alugb")
+shader_parameter/FLOWER_ALBEDO = Color(0.651072, 1.34766e-06, 0.347, 1)
+shader_parameter/FLUX_POS = null
+shader_parameter/PLAYER_POS = null
+shader_parameter/T_TIME = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k83hb"]
+render_priority = 0
+shader = ExtResource("1_llsmc")
+shader_parameter/ROOT_ALBEDO = Color(0.7579, 0.78, 0.117, 1)
+shader_parameter/FLUX_POS = null
+shader_parameter/PLAYER_POS = null
+shader_parameter/T_TIME = null
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_4mv2h"]
+_surfaces = [{
+"aabb": AABB(-0.0956889, 0.421367, -0.0496156, 0.0860415, 0.114722, 0.0745141),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AwACAAAAAAABAAcAAAACAAEABwABAAYAAwAFAAIAAgAEAAEAAgAFAAQAAQAEAAYAAwAAAAUABQAHAAQABQAAAAcABAAHAAYA"),
+"lods": [0.0224584, PackedByteArray("AwACAAcABwACAAYAAwAFAAIAAgAFAAYAAwAHAAUABQAHAAYA")],
+"name": "Material.002",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("/3//PwAAAAD///+///8AAP///z///wAA/38AAKqqAAAAAP+///8AAAAA/z///wAA/3///6qqAAD/f/+/AAAAAA==")
+}, {
+"aabb": AABB(-0.10318, -0.00191495, -0.00069574, 0.13795, 0.48466, 0.0164688),
+"format": 34896613377,
+"index_count": 57,
+"index_data": PackedByteArray("AAAUAAEAEwARABIAAAATABQABAACAAMAAgATAAAAEwAQABEADwANAA4AAgAQABMADwAMAA0AAgAPABAABQACAAQACAAGAAcABQAPAAIACQAGAAgABgAPAAUADAAKAAsABgAMAA8ADAAJAAoADAAGAAkA"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 21,
+"vertex_data": PackedByteArray("06YAADULAABbygAANQsAAOybk1fykAAAqEA1d+/CAABcT2V778IAAOybvGLykAAArGMMvIhkAAAAAODD//8AAJoT2cr//wAArmU2xvGDAAB7SEz/NQsAAD1t//81CwAAzJVLs/KQAABl7AK9AAAAAKnyErEJTAAADaIuqfKQAAABvRtr8pAAAGv3cIar0AAA///Kd6vQAADowS1l8pAAAArDa0V5FQAA")
+}]
+blend_shape_mode = 0
+
+[resource]
+resource_name = "rose_Sphere"
+_surfaces = [{
+"aabb": AABB(-0.0956889, 0.421367, -0.0496156, 0.0860415, 0.114722, 0.0745141),
+"attribute_data": PackedByteArray("qqqqqqqqqqqqqqqqqqqqqlVVVVVVVVVVVVVVVVVVVVVVVaqqVVWqqlVVqqpVVaqqVNX//6oq////f////v9VVf7/VVUAAFVVAABVVf7/qqr+/6qqAACqqgAAqqpU1QAAqioAAP9/AACpqlVVqapVVamqVVWpqlVVVVWqqlVVqqpU1f///3///wAAqqpU1QAAqioAAP9/AACpqlVV"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("DgAKAAIAAwAHAB0AAwALAAcAHAAGABkADQAVAAgACQARAAQACQAWABEABQASABgADAABABQAEwAaAA8AEwAAABoAEAAbABcA"),
+"lods": [0.0224584, PackedByteArray("IQAKACYAJgAfACUADQAiAB4AHgAiACQAIAAaABMAEwAaACMA")],
+"material": SubResource("ShaderMaterial_plotj"),
+"name": "Material.002",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 39,
+"vertex_data": PackedByteArray("/3//PwAAVNX/f/8/AABD2P9//z8AAEPY/3//PwAAVNX///+///8AgP///7///xSd////v///Q9j///+///9U1f///z///xSd////P///AID///8///9D2P///z///1TV/38AAKqqQ9j/fwAAqqoUnf9/AACqqkPYAAD/v///VNUAAP+///9D2AAA/7///wCAAAD/v///FJ0AAP8///9U1QAA/z///0PYAAD/P///FJ0AAP8///8AgP9///+qqkPY/3///6qqFJ3/f///qqpD2P9//78AAFTV/3//vwAAQ9j/f/+/AABD2P9//78AAFTV////P///f43///8///9U1f9/AACqquzV/38AAKqq/dUAAP8////VjP9///+qqlTV/3///6qqEo7/f///qqpU1f9//78AAFfV/3///5lQpe6mbmUv/38AAP9///////9/Za9ZEf9/AAAAAP9//3///6ZuZS//fwAAmVCl7gAA/3+mbmUv/3/+/1iRmdD/f///////f/9//v+ZUKXuAAD/f/9///9YkZnQ////f2WvWRH/f/7/WJGZ0GWvWRH/fwAAAAD/f/9/AAAgZob2IHb3GgAA/3//f/7//v//f/9/AABXfoUE")
+}, {
+"aabb": AABB(-0.10318, -0.00191495, -0.00069574, 0.13795, 0.48466, 0.0164688),
+"attribute_data": PackedByteArray("vXr//7iA///peQHMx2FcvUFk4rrpeWfFQHEwkMdhPYsUZR2HA3BFjNtq/2gLcZZo4XjClRWGopG7h52X8Xq9m3t/dMAgjom8ko8zxU6A9sN7f/DW"),
+"format": 34896613399,
+"index_count": 57,
+"index_data": PackedByteArray("AAAUAAEAEwARABIAAAATABQABAACAAMAAgATAAAAEwAQABEADwANAA4AAgAQABMADwAMAA0AAgAPABAABQACAAQACAAGAAcABQAPAAIACQAGAAgABgAPAAUADAAKAAsABgAMAA8ADAAJAAoADAAGAAkA"),
+"material": SubResource("ShaderMaterial_k83hb"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 21,
+"vertex_data": PackedByteArray("06YAADUL4YFbygAANQvggeybk1fykKSCqEA1d+/Cy4VcT2V778KRhuybvGLykICFrGMMvIhkP4sAAODD///6gZoT2cr//5uDrmU2xvGD5oF7SEz/NQswgj1t//81C+CBzJVLs/KQcYNl7AK9AAADgqnyErEJTPeBDaIuqfKQvoIBvRtr8pCZjmv3cIar0KKj///Kd6vQy6PowS1l8pC7iArDa0V5FY2DX4duAaSBrgFDguFAkYIKYJmCPGOOgqFeJRI+AnSggQAGMDEBp5IEARyCUDGmgXcCATIfAQikXwDwgbcfnD22AFMOYQLvBa0C5wWtArAWFQKoMCsB")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_4mv2h")

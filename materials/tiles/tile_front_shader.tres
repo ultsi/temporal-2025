@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cr6kbwm61pbui"]
+
+[ext_resource type="Shader" path="res://materials/tiles/meshes/uv_mapped_tiles.gdshader" id="1_sijob"]
+[ext_resource type="Texture2D" uid="uid://dacqxf2ayc70g" path="res://materials/tiles/tiles.png" id="2_c07r6"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_sijob")
+shader_parameter/TILE_ATLAS = ExtResource("2_c07r6")

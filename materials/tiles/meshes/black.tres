@@ -1,0 +1,9 @@
+[gd_resource type="QuadMesh" load_steps=2 format=3 uid="uid://ciqw02gf1mkj2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f5vmu"]
+diffuse_mode = 3
+albedo_color = Color(0, 0, 0, 1)
+
+[resource]
+material = SubResource("StandardMaterial3D_f5vmu")
+size = Vector2(2, 2)

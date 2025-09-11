@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bopu4cl2jonh8"]
+
+[ext_resource type="PackedScene" uid="uid://cqp6ln6shetq4" path="res://game/levels/grass_trees_test/grass/models/simple_grass_billboard.glb" id="1_0rjgl"]
+[ext_resource type="ArrayMesh" uid="uid://dah562swd8a41" path="res://game/levels/grass_trees_test/grass/models/simple_grass_billboard.tres" id="2_pfyb5"]
+
+[node name="simple_grass_billboard" instance=ExtResource("1_0rjgl")]
+
+[node name="Grass" parent="." index="0"]
+cast_shadow = 0
+mesh = ExtResource("2_pfyb5")

@@ -1,0 +1,41 @@
+[gd_resource type="ArrayMesh" load_steps=5 format=4 uid="uid://c4m40nwyywm2g"]
+
+[ext_resource type="Shader" path="res://materials/tiles/meshes/uv_mapped_tiles.gdshader" id="1_eod60"]
+[ext_resource type="Texture2D" uid="uid://dacqxf2ayc70g" path="res://materials/tiles/tiles.png" id="2_pwhva"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j7h8a"]
+render_priority = 0
+shader = ExtResource("1_eod60")
+shader_parameter/TILE_ATLAS = ExtResource("2_pwhva")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_vlwij"]
+_surfaces = [{
+"aabb": AABB(-1, -1, -2, 2, 2, 4),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAAGAAQAAAACAAYAAwAGAAIAAwAHAAYABwAEAAYABwAFAAQABQADAAEABQAHAAMAAQACAAAAAQADAAIABQAAAAQABQABAAAA"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("/////wAAAAD//wAAAAAAAP///////wAA//8AAP//AAAAAP//AAAAAAAAAAAAAAAAAAD/////AAAAAAAA//8AAA==")
+}]
+blend_shape_mode = 0
+
+[resource]
+resource_name = "uv-reset-box_Cube"
+_surfaces = [{
+"aabb": AABB(-1, -1, -2, 2, 2, 4),
+"attribute_data": PackedByteArray("/3//f/7///////9//3/+/////3/+////////f/9//v//f/9//v////9//3//f/7/////f////3//f/9//v////7/////f/7//3//f/9//3////9//3/+//9//v/+////"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AQATAA0AAQAHABMACQASAAYACQAVABIAFwAOABQAFwARAA4AEAAKAAQAEAAWAAoABQAIAAIABQALAAgADwAAAAwADwADAAAA"),
+"material": SubResource("ShaderMaterial_j7h8a"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(2, 2, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/////wAA////////AABU1f////8AAP+///8AAAAA/////wAAAABU1f//AAAAAP+/////////AID///////9U1f////////+///8AAP//AID//wAA//9U1f//AAD///+/AAD//wAA//8AAP//AABU1QAA//8AAP+/AAAAAAAA//8AAAAAAABU1QAAAAAAAP+/AAD/////AIAAAP////9U1QAA//////+/AAAAAP//AIAAAAAA//9U1QAAAAD///+//3///1TVqir/fwAA/3///1RVVFX/fwAA/3///1TVqir/fwAA/3///1RVVFX/fwAA/3///1TVqir/f////3///1RVVFX/f////3///1TVqir/f////3///1RVVFX/f///")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_vlwij")

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://iyppwrpeivfn"]
+
+[ext_resource type="PackedScene" uid="uid://dxqabbx50e4i" path="res://entities/moving-platform/moving_platform.tscn" id="1_3ifsv"]
+[ext_resource type="Script" uid="uid://d0ws5381mj8o7" path="res://entities/spikes/moving_spikes.gd" id="1_3qbvh"]
+[ext_resource type="PackedScene" uid="uid://d17vyejdfa6sn" path="res://entities/spikes/spikes.tscn" id="2_3qbvh"]
+
+[node name="MovingSpikes" type="Node3D"]
+script = ExtResource("1_3qbvh")
+distance = 5.7
+move_time = 0.157
+stop_time = 0.13
+
+[node name="MovingPlatform" parent="." instance=ExtResource("1_3ifsv")]
+target_pos_8px = Vector3(0, 5.7, 0)
+move_time = 0.157
+stop_time = 0.13
+
+[node name="Spikes" parent="MovingPlatform/BodyPivot/StaticBody3D" index="2" instance=ExtResource("2_3qbvh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.5, 0)
+
+[node name="Target" parent="MovingPlatform/EditorOnly" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.9, 0)
+
+[editable path="MovingPlatform"]

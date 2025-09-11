@@ -1,0 +1,61 @@
+[gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://c6udwmlukq7e7"]
+
+[ext_resource type="Material" uid="uid://cr6kbwm61pbui" path="res://materials/tiles/tile_front_shader.tres" id="1_42vps"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lw74t"]
+shading_mode = 0
+albedo_color = Color(0, 0.247059, 0, 1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_kfyf1"]
+_surfaces = [{
+"aabb": AABB(-1, -1, -2, 2, 2, 4),
+"format": 34896613377,
+"index_count": 24,
+"index_data": PackedByteArray("AAAGAAQABwAEAAYAAAACAAYABwAFAAQAAQACAAAABQAHAAMAAQADAAIABQADAAEA"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("/////wAAAAD//wAAAAAAAP///////wAA//8AAP//AAAAAP//AAAAAAAAAAAAAAAAAAD/////AAAAAAAA//8AAA==")
+}, {
+"aabb": AABB(-1, -1, 2, 2, 2, 1e-05),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray("AQACAAAAAQADAAIA"),
+"name": "Frontface",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("/////wAAAAD//wAAAAAAAAAA//8AAAAAAAAAAAAAAAA=")
+}]
+blend_shape_mode = 0
+
+[resource]
+resource_name = "uv-reset-box_Cube"
+_surfaces = [{
+"aabb": AABB(-1, -1, -2, 2, 2, 4),
+"attribute_data": PackedByteArray("/v///////3////9//v////9//v//f/9//3//f/9//v////9//3//f/7/////f/7//3//f////3//f/7//v///w=="),
+"format": 34896613399,
+"index_count": 24,
+"index_data": PackedByteArray("AAAMAAgAAAAEAAwADwAJAA0ADwALAAkACgAGAAIACgAOAAYAAwAFAAEAAwAHAAUA"),
+"material": SubResource("StandardMaterial3D_lw74t"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(2, 2, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("/////wAAVNX/////AAD/v///AAAAAFTV//8AAAAA/7////////9U1f////////+///8AAP//VNX//wAA////vwAA//8AAFTVAAD//wAA/78AAAAAAABU1QAAAAAAAP+/AAD/////VNUAAP//////vwAAAAD//1TVAAAAAP///79U1aoq/38AAFRVVFX/fwAAVNWqKv9/AABUVVRV/38AAFTVqir/f///VFVUVf9///9U1aoq/3///1RVVFX/f///")
+}, {
+"aabb": AABB(-1, -1, 2, 2, 2, 1e-05),
+"attribute_data": PackedByteArray("////f/7/////f/9//3/+/w=="),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray("AQACAAAAAQADAAIA"),
+"material": ExtResource("1_42vps"),
+"name": "Frontface",
+"primitive": 3,
+"uv_scale": Vector4(2, 2, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("/////wAAAID//wAAAAAAgAAA//8AAACAAAAAAAAAAID/f////3////9/////f///")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_kfyf1")

@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://cijmirv2qj"]
+
+[ext_resource type="Texture2D" uid="uid://bw625ytqmp8q7" path="res://materials/tiny-rpg-proto-assets2/Characters(100x100)/Soldier/Arrow(projectile)/Arrow01(100x100).png" id="1_pro7u"]
+[ext_resource type="Script" uid="uid://bvwdbnqspobs" path="res://entities/arrow/arrow.gd" id="1_tlan0"]
+[ext_resource type="PackedScene" uid="uid://bng43epq0ha10" path="res://entities/arrow/arrow_hit_world.tscn" id="4_hv62s"]
+[ext_resource type="AudioStream" uid="uid://pu1l83w5eda" path="res://sound/flux/flux_on.ogg" id="4_oteb5"]
+[ext_resource type="AudioStream" uid="uid://cjf0harfxmeuq" path="res://sound/flux/flux_off.ogg" id="5_oteb5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sxu4w"]
+radius = 5.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_oteb5"]
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oteb5"]
+size = Vector3(0.5, 1.8, 1)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_sfw5p"]
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("4_oteb5")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nfrsj"]
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("5_oteb5")
+
+[node name="Arrow" type="Node3D"]
+script = ExtResource("1_tlan0")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.1
+texture_filter = 0
+texture = ExtResource("1_pro7u")
+
+[node name="SeekArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SeekArea"]
+shape = SubResource("SphereShape3D_sxu4w")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.6308289)
+
+[node name="GPUParticles3D" parent="." instance=ExtResource("4_hv62s")]
+transform = Transform3D(0.015515357, -0.9998797, 0, 0.9998797, 0.015515357, 0, 0, 0, 1, 0.9660883, -0.010477215, 0)
+
+[node name="AudioHit" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_oteb5")
+volume_db = 60.0
+
+[node name="HurtArea" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtArea"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_oteb5")
+
+[node name="AudioFluxOn" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_sfw5p")
+volume_db = 60.0
+
+[node name="AudioFluxOff" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_nfrsj")
+volume_db = 60.0

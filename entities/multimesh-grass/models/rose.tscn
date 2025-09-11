@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b56m8khjj53qc"]
+
+[ext_resource type="PackedScene" uid="uid://cx6l83qsrvhr2" path="res://game/levels/grass_trees_test/grass/models/rose.glb" id="1_yyk33"]
+[ext_resource type="ArrayMesh" uid="uid://cijjihojo3bod" path="res://game/levels/grass_trees_test/grass/models/rose.tres" id="2_0p30o"]
+
+[node name="rose" instance=ExtResource("1_yyk33")]
+
+[node name="Flower" parent="." index="0"]
+mesh = ExtResource("2_0p30o")

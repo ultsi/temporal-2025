@@ -1,0 +1,1 @@
+class_name WorldTile extends StaticBody3D

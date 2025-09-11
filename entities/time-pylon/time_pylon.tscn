@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://6aajbanenv43"]
+
+[ext_resource type="Script" uid="uid://bnsj7xsfl42m4" path="res://entities/time-pylon/time_pylon.gd" id="1_s763u"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_mpcsj"]
+size = Vector3(2, 4, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mpcsj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpcsj"]
+albedo_color = Color(1, 1, 0, 1)
+
+[node name="TimePylon" type="Node3D"]
+script = ExtResource("1_s763u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_mpcsj")
+
+[node name="Orbs" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.605447, 1.0410767)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Orbs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("SphereMesh_mpcsj")
+surface_material_override/0 = SubResource("StandardMaterial3D_mpcsj")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Orbs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95105654, 0.309017, 0)
+mesh = SubResource("SphereMesh_mpcsj")
+surface_material_override/0 = SubResource("StandardMaterial3D_mpcsj")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Orbs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58778524, -0.809017, 0)
+mesh = SubResource("SphereMesh_mpcsj")
+surface_material_override/0 = SubResource("StandardMaterial3D_mpcsj")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Orbs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58778524, -0.809017, 0)
+mesh = SubResource("SphereMesh_mpcsj")
+surface_material_override/0 = SubResource("StandardMaterial3D_mpcsj")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Orbs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95105654, 0.309017, 0)
+mesh = SubResource("SphereMesh_mpcsj")
+surface_material_override/0 = SubResource("StandardMaterial3D_mpcsj")

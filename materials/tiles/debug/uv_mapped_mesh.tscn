@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0dv28ckho1ni"]
+
+[ext_resource type="PackedScene" uid="uid://8nfjo4vpla4q" path="res://materials/tiles/debug/uv-reset-box.blend" id="1_c1nhf"]
+[ext_resource type="ArrayMesh" uid="uid://d30evye38lwgp" path="res://materials/tiles/meshes/uv_mapped_box2.tres" id="2_mgx7i"]
+
+[node name="uv-reset-box" instance=ExtResource("1_c1nhf")]
+
+[node name="Cube" parent="." index="0"]
+mesh = ExtResource("2_mgx7i")

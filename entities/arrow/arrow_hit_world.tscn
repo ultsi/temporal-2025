@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bng43epq0ha10"]
+
+[sub_resource type="Curve" id="Curve_y2bv5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.47873002, 0.42525464), 0.0, 0.0, 0, 0, Vector2(0.98847187, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_70ri5"]
+curve = SubResource("Curve_y2bv5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y2bv5"]
+direction = Vector3(0, 1, 0)
+spread = 40.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_70ri5")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y2bv5"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_70ri5"]
+material = SubResource("StandardMaterial3D_y2bv5")
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
+emitting = false
+lifetime = 0.24000000000000002
+one_shot = true
+explosiveness = 0.71
+process_material = SubResource("ParticleProcessMaterial_y2bv5")
+draw_pass_1 = SubResource("QuadMesh_70ri5")

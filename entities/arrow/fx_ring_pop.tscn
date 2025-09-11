@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3w7qt3q03gip"]
+
+[ext_resource type="Shader" uid="uid://k8vqnm13yjxr" path="res://entities/arrow/arrow_explosion.gdshader" id="1_x0m3l"]
+[ext_resource type="Script" uid="uid://vmhpyn1ku7v" path="res://entities/arrow/fx_ring_pop.gd" id="2_qi2ad"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_ke763"]
+size = Vector2(6, 6)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nr4fd"]
+render_priority = 0
+shader = ExtResource("1_x0m3l")
+shader_parameter/START_TIME = -0.739
+shader_parameter/DURATION = 0.50000002375
+shader_parameter/START_COLOR = Color(3.5660536, 0, 0.91445047, 1)
+shader_parameter/END_COLOR = Color(3.2944162, 3.2944162, 0, 1)
+shader_parameter/PROGRESS = 1.0
+shader_parameter/WIDTH = 0.2210000104975
+
+[node name="FXRingPop" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_ke763")
+surface_material_override/0 = SubResource("ShaderMaterial_nr4fd")
+script = ExtResource("2_qi2ad")
+duration = 0.34

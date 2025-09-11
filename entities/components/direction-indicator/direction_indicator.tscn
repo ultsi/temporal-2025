@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4d2c50g7gae3"]
+
+[ext_resource type="Shader" uid="uid://5ibv51f2cl01" path="res://entities/components/direction-indicator/direction_indicator.gdshader" id="1_6isy8"]
+[ext_resource type="Script" uid="uid://b44nxxqm0ekj8" path="res://entities/components/direction-indicator/direction_indicator.gd" id="1_mefsy"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jncxq"]
+size = Vector2(5, 5)
+orientation = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6isy8"]
+render_priority = 6
+shader = ExtResource("1_6isy8")
+shader_parameter/ANGLE = 0.0
+
+[node name="DirectionIndicator" type="Node3D"]
+script = ExtResource("1_mefsy")
+
+[node name="DirectionRingShader" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_jncxq")
+surface_material_override/0 = SubResource("ShaderMaterial_6isy8")
