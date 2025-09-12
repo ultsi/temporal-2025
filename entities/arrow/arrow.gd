@@ -27,21 +27,22 @@ var hit_what := ""
 
 func _ready() -> void:
 	print("Arrow spawned ", self, " for parent ", get_parent())
-	_spawn_tick = T.tick
+	_spawn_tick = T.global_tick
 	visible = false
 	T.register_tickable(self)
 	original_parent = get_parent()
 	#replay_states.debug = true
 
 func shoot() -> void:
-	print("Shot arrow ", self, " at tick ", T.get_tick(self))
+	print("Shot arrow ", self, " at tick ", T.get_node_tick(self))
+	cancel()
 	reset()
-	_spawn_tick = T.tick
+	_spawn_tick = T.global_tick
 	is_shot = true
 	show()
-	shot_tick = T.tick
+	shot_tick = T.global_tick
 	velocity = direction * impulse
-	#replay_states.invalidate_from(T.tick)
+	#replay_states.invalidate_from(T.global_tick)
 
 
 func reset() -> void:
@@ -126,6 +127,7 @@ func _hit(body: Node3D) -> void:
 	reparent(body)
 	top_level = false
 	hit_fx.emitting = true
+	body.tree_exiting.connect(func() -> void: reparent(original_parent))
 
 func save_state(state: ReplayStates.State) -> void:
 	state.flags = [is_hit, is_shot]
@@ -155,10 +157,10 @@ func _on_tick(tick: int, _immune_tick := false) -> void:
 	# 			apply_hit()
 	# 	return
 	#print("Not replaying arrow id {0} tick {1}".format([get_instance_id(), tick]))
-	var alive_time := Utils.time_since_tick_ms(_spawn_tick)
+	var alive_time := tick - _spawn_tick
 
 	if !is_hit:
-		if alive_time > 100:
+		if alive_time > 5:
 			velocity.y -= 70 * C.TIME_BETWEEN_TICKS
 		
 		var old_pos := global_position

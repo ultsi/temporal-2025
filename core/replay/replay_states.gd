@@ -185,7 +185,7 @@ func decode_previous_tick() -> State:
 	return decode_tick_at(T.prev_tick)
 
 func decode_tick() -> State:
-	return decode_tick_at(T.tick)
+	return decode_tick_at(T.global_tick)
 
 func invalidate_from(start_tick: int) -> void:
 	resize(start_tick)

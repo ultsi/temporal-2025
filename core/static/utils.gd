@@ -13,10 +13,10 @@ static func is_tile_pos_out_of_bounds(pos: Vector2i) -> bool:
 	return pos.x < 0 || pos.y < 0 || pos.x >= C.LEVEL_TILES_WIDTH || pos.y >= C.LEVEL_TILES_HEIGHT
 
 static func time_since_tick_ms(tick: int) -> int:
-	return int(float(T.tick - tick) / C.TICKS_PER_SECOND * 1000.0)
+	return int(float(T.global_tick - tick) / C.TICKS_PER_SECOND * 1000.0)
 
 static func tick_from_now(time: float) -> int:
-	return T.tick + int(time * C.TICKS_PER_SECOND)
+	return T.global_tick + int(time * C.TICKS_PER_SECOND)
 
 static func tick_to_time(tick: int) -> float:
 	return tick * C.TIME_BETWEEN_TICKS

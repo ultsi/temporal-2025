@@ -2,7 +2,7 @@
 extends Node3D
 
 var immune_tick := 0
-var tick := 0
+var global_tick := 0
 var prev_tick := 0
 var time := 0.0
 var timepoint_tick := 0
@@ -13,7 +13,7 @@ const MAX_FLUX_TICKS := 300 # 5 seconds ahead max
 class Tickable extends RefCounted:
 	var node: Node3D
 	var tick := 0
-	var flux := false
+	var flux_ticks_left := -1
 	var immune := false
 
 
@@ -30,15 +30,15 @@ func register_tickable(node: Node3D) -> void:
 		return
 	var tickable := Tickable.new()
 	tickable.node = node
-	tickable.tick = tick
+	tickable.tick = global_tick
 	_tickables[node.get_instance_id()] = tickable
 
-func enable_flux(node: Node3D) -> void:
+func enable_flux(node: Node3D, ticks := MAX_FLUX_TICKS) -> void:
 	if !_tickables.has(node.get_instance_id()):
 		print("Can't enable flux as node {0} isn't tickable".format([node]))
 		return
 	var tickable := _tickables[node.get_instance_id()]
-	tickable.flux = true
+	tickable.flux_ticks_left = ticks
 	_flux_counter[node.get_instance_id()] = true
 
 func disable_flux(node: Node3D) -> void:
@@ -46,8 +46,21 @@ func disable_flux(node: Node3D) -> void:
 		print("Can't disable flux as node {0} isn't tickable".format([node]))
 		return
 	var tickable := _tickables[node.get_instance_id()]
-	tickable.flux = false
+	tickable.flux_ticks_left = -1
 	_flux_counter.erase(node.get_instance_id())
+
+func clear_flux() -> void:
+	for id in _tickables:
+		var tickable := _tickables[id]
+		tickable.flux_ticks_left = -1
+
+	_flux_counter.clear()
+
+func is_flux(node: Node3D) -> bool:
+	return is_tickable(node) && _tickables[node.get_instance_id()].flux_ticks_left > 0
+
+func flux_ticks_left(node: Node3D) -> int:
+	return _tickables[node.get_instance_id()].flux_ticks_left if is_tickable(node) else -1
 
 func enable_immune(node: Node3D) -> void:
 	if !_tickables.has(node.get_instance_id()):
@@ -63,6 +76,11 @@ func disable_immune(node: Node3D) -> void:
 	var tickable := _tickables[node.get_instance_id()]
 	tickable.immune = false
 
+func clear_immune() -> void:
+	for id in _tickables:
+		var tickable := _tickables[id]
+		tickable.immune = false
+
 
 func is_tickable(node: Node3D) -> bool:
 	return _tickables.has(node.get_instance_id())
@@ -72,28 +90,16 @@ func erase_tickable(id: int) -> void:
 	_tickables.erase(id)
 	_flux_counter.erase(id)
 
-func clear_flux() -> void:
-	for id in _tickables:
-		var tickable := _tickables[id]
-		tickable.flux = false
 
-	_flux_counter.clear()
-
-
-func clear_immune() -> void:
-	for id in _tickables:
-		var tickable := _tickables[id]
-		tickable.immune = false
-
-func get_tick(node: Node3D) -> int:
+func get_node_tick(node: Node3D) -> int:
 	if !_tickables.has(node.get_instance_id()):
-		return tick
+		return global_tick
 	var tickable := _tickables[node.get_instance_id()]
 	return tickable.tick
 
 
 func reset_loop() -> void:
-	tick = 0
+	global_tick = 0
 	clear_flux()
 	clear_immune()
 	for id in _tickables:
@@ -101,7 +107,6 @@ func reset_loop() -> void:
 		tickable.tick = 0
 
 
-var in_flux := false
 const FLUX_SLOWDOWN := 2 ** 16 # 16 stage slowdown
 var _next_flux_tick_plus := 1
 var _next_flux_slowdown_tick := 0
@@ -127,25 +132,26 @@ func _physics_process(_delta: float) -> void:
 
 		if should_global_tick:
 			# normal case
-			time = tick * C.TIME_BETWEEN_TICKS
-			if tickable.tick <= tick:
-				tickable.tick = tick
+			time = global_tick * C.TIME_BETWEEN_TICKS
+			if tickable.tick <= global_tick:
+				tickable.tick = global_tick
 				tickable.node.call("_on_tick", tickable.tick)
 			elif tickable.immune:
 				tickable.node.call("_on_tick", tickable.tick, true)
-		elif tickable.flux:
+		elif tickable.flux_ticks_left > 0:
 			tickable.tick += 1
 			tickable.node.call("_on_tick", tickable.tick)
+			tickable.flux_ticks_left -= 1
 
-			if tickable.tick - tick >= MAX_FLUX_TICKS:
+			if tickable.flux_ticks_left <= 0:
 				disable_flux.call_deferred(tickable.node)
 		elif tickable.immune:
 			tickable.node.call("_on_tick", tickable.tick, true)
 
 
 	if should_global_tick:
-		prev_tick = tick
-		tick += 1
+		prev_tick = global_tick
+		global_tick += 1
 
 	if !are_flux_objects:
 		_next_flux_tick_plus = 1

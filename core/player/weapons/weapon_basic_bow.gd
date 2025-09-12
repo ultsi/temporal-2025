@@ -14,7 +14,7 @@ var drawing_start := 0
 var last_use_time := 0
 var shot_arrow: Arrow
 
-const ARROWS_BUFFER_SIZE := 1
+const ARROWS_BUFFER_SIZE := 2
 
 const IMPULSE_RANGE := [20, 60]
 const MIN_DRAW_TIME_MS := 100
@@ -42,11 +42,10 @@ func can_use() -> bool:
 
 
 func use_press(dir: Vector2) -> AnimAction:
-	if shot_arrow:
-		shot_arrow.cancel()
-		shot_arrow = null
-		return AnimAction.new()
-
+	# if shot_arrow:
+	# 	shot_arrow.cancel()
+	# 	shot_arrow = null
+	# 	return AnimAction.new()
 	if !drawing:
 		audio_draw.play()
 		drawing_start = Time.get_ticks_msec()
@@ -83,6 +82,8 @@ func use_release(dir: Vector2) -> AnimAction:
 
 	ammo_count -= 1
 	var arrow: Arrow = arrow_ring_buffer[arrow_index]
+	if T.is_flux(Player.player):
+		T.enable_flux(arrow, T.flux_ticks_left(Player.player))
 	print("Player {0} shot arrow {1} from basic bow {2}".format([get_parent_node_3d(), arrow, self]))
 	arrow.global_position = global_position
 	arrow.impulse = perc_drawn * (IMPULSE_RANGE[1] - IMPULSE_RANGE[0]) + IMPULSE_RANGE[0]

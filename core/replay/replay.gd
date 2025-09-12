@@ -20,7 +20,7 @@ static func save_replay_state(node: Node3D, tick := -1) -> void:
 
 
 	if tick < 0:
-		tick = T.tick
+		tick = T.global_tick
 
 	var state := ReplayStates.State.new()
 	_save_node_state(node, state)
@@ -42,9 +42,9 @@ static func replay_node(node: Node3D, tick := -1) -> bool:
 		return false
 	
 	if tick < 0:
-		tick = T.tick
+		tick = T.global_tick
 
-	if replay_states.size <= T.tick:
+	if replay_states.size <= T.global_tick:
 		return false
 
 	var state := replay_states.decode_tick_at(tick)
@@ -73,9 +73,9 @@ static func get_position_at(node: Node3D, tick := -1) -> Vector3:
 		return Vector3.ZERO
 
 	if tick < 0:
-		tick = T.tick
+		tick = T.global_tick
 	
-	if replay_states.size <= T.tick:
+	if replay_states.size <= T.global_tick:
 		return Vector3.ZERO
 
 	var state := replay_states.decode_tick_at(tick)

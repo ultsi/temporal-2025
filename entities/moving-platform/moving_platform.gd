@@ -73,7 +73,7 @@ func _on_tick(_delta: float) -> void:
 	if !enabled:
 		return
 
-	var tick := T.get_tick(self)
+	var tick := T.get_node_tick(self)
 	var time := Utils.tick_to_time(tick)
 
 
