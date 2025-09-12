@@ -28,10 +28,10 @@ void light() {
 	// Uncomment to replace the default light processing function with this one.
 	//DIFFUSE_LIGHT += clamp(dot(NORMAL, LIGHT), 0.0, 1.0) * ATTENUATION * LIGHT_COLOR;
 
-	if (!LIGHT_IS_DIRECTIONAL && alpha > 0.1) {
+	if (!LIGHT_IS_DIRECTIONAL && alpha > 0.01) {
 		vec3 light_normal = LIGHT;
 		if (light_normal.z < 0.0) {
-			DIFFUSE_LIGHT += ATTENUATION * LIGHT_COLOR;
+			DIFFUSE_LIGHT += (ATTENUATION+1.0) * LIGHT_COLOR;
 		} else {
 			DIFFUSE_LIGHT += clamp(dot(light_normal, NORMAL), 0.0, 1.0) * ATTENUATION * LIGHT_COLOR;
 		}

@@ -13,6 +13,8 @@ class_name Level extends Node3D
 
 #region EXPORTS
 
+@export var debug_lights := false
+
 @export_tool_button("Build level")
 var build_tiles := func() -> void:
 	if Engine.is_editor_hint() && is_inside_tree():
@@ -110,6 +112,7 @@ var level_on_screen := true
 var occlusion_lookup_grid: Dictionary[int, int] = {}
 var occlusion_grid: Dictionary[int, int] = {}
 var level_preview: CompressedTexture2D
+var multimesh_shader: ShaderMaterial
 
 #region READY
 
@@ -156,11 +159,18 @@ func _ready() -> void:
 	#level_preview = load(get_level_preview_filename())
 	#Game.register_level(self)
 	#visible = false
+	if debug_lights:
+		var maybe_mesh_instances := find_children("*", "MultiMeshInstance3D")
+		for node: Node in maybe_mesh_instances:
+			if node is MultiMeshInstance3D:
+				var inst := node as MultiMeshInstance3D
+				var mesh = inst.multimesh.mesh
+				multimesh_shader = mesh.surface_get_material(1)
+				break
+	
 	#endregion
 #endregion
-
 #region physics 
-
 func _physics_process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		set_physics_process(false)
@@ -168,10 +178,26 @@ func _physics_process(_delta: float) -> void:
 
 	if !level_on_screen:
 		return
+
+func _process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+
+	if !debug_lights:
+		return
+
+	if Time.get_ticks_msec() / 1000 % 1 == 0:
+		# update shader
+		if !multimesh_shader:
+			return
+		var shader_path := multimesh_shader.shader.resource_path
+		var new_shader_code := FileAccess.get_file_as_string(shader_path)
+		if multimesh_shader.shader.code != new_shader_code:
+			multimesh_shader.shader.code = new_shader_code
+			print("Updated shader")
+		
 #endregion
-
 #region BOUNDARIES
-
 func initialize_boundaries() -> void:
 	assert(Engine.is_editor_hint(), "Boundaries initialization only allowed in tool-mode!")
 	var boundaries: MeshInstance3D = get_node_or_null("BOUNDARIES")

@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://coemklgrdf43m"]
+
+[ext_resource type="Script" uid="uid://h1td5nx2s88y" path="res://entities/lights/torches/torch_light.gd" id="1_wywvd"]
+[ext_resource type="Script" uid="uid://dcj1idu18ttol" path="res://entities/lights/torches/time_particles.gd" id="2_m0rhx"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_boqul"]
+top_radius = 0.25
+bottom_radius = 0.0
+radial_segments = 4
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Gradient" id="Gradient_wywvd"]
+colors = PackedColorArray(2, 1, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8kqcb"]
+gradient = SubResource("Gradient_wywvd")
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_m0rhx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.340659), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8kqcb"]
+curve = SubResource("Curve_m0rhx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t1xf7"]
+particle_flag_align_y = true
+direction = Vector3(0, 1, -0.1)
+spread = 20.0
+flatness = 0.177
+initial_velocity_min = 1.0
+initial_velocity_max = 1.1
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_8kqcb")
+color_ramp = SubResource("GradientTexture1D_8kqcb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7uxnp"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_gqgyj"]
+material = SubResource("StandardMaterial3D_7uxnp")
+size = Vector2(0.8, 0.8)
+
+[node name="TorchLeftFG" type="Node3D"]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.748868, 0.795397, 0.326808)
+shadow_enabled = true
+shadow_normal_bias = 0.5
+shadow_opacity = 0.9
+shadow_blur = 0.5
+omni_range = 22.0
+omni_attenuation = 1.5
+script = ExtResource("1_wywvd")
+flicker = 0.019
+og_range = 22.0
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(4.90144e-08, -0.707107, -0.707107, -9.27258e-08, 0.707107, -0.707107, 1, 1.00225e-07, -3.09086e-08, 0, 0, 0.256425)
+mesh = SubResource("CylinderMesh_boqul")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.731395, 0.782885, 0.237935)
+cast_shadow = 0
+amount = 16
+explosiveness = 0.11
+randomness = 0.39
+process_material = SubResource("ParticleProcessMaterial_t1xf7")
+draw_pass_1 = SubResource("QuadMesh_gqgyj")
+script = ExtResource("2_m0rhx")

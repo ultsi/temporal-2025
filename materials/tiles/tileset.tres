@@ -52,6 +52,8 @@ texture = ExtResource("2_jh5od")
 3:7/0/custom_data_0 = "test"
 15:7/0 = 0
 15:7/0/custom_data_0 = "nontunnel"
+7:7/0 = 0
+7:7/0/custom_data_0 = "brick"
 
 [resource]
 custom_data_layer_0/name = "type"
