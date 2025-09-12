@@ -407,6 +407,126 @@ metadata/_edit_group_ = true
 [node name="Player" parent="MID" instance=ExtResource("10_5ebod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.320171, 19.203466, 0)
 
+[node name="TorchBG" parent="MID" instance=ExtResource("19_dr4cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.182, 15.563999, 0)
+
+[node name="OmniLight3D" parent="MID/TorchBG" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
+light_color = Color(0, 1, 1, 1)
+omni_range = 11.0
+omni_attenuation = 1.0
+og_range = 11.0
+
+[node name="TorchBG6" parent="MID" instance=ExtResource("19_dr4cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.69206, 2.796092, 0)
+
+[node name="OmniLight3D" parent="MID/TorchBG6" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
+light_color = Color(0, 1, 1, 1)
+omni_range = 11.0
+omni_attenuation = 1.0
+og_range = 11.0
+
+[node name="TorchBG7" parent="MID" instance=ExtResource("19_dr4cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3314323, 9.124495, 0)
+
+[node name="OmniLight3D" parent="MID/TorchBG7" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
+light_color = Color(0, 1, 1, 1)
+omni_range = 11.0
+omni_attenuation = 1.0
+og_range = 11.0
+
+[node name="TorchBG8" parent="MID" instance=ExtResource("19_dr4cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.331432, 34.124496, 0)
+
+[node name="OmniLight3D" parent="MID/TorchBG8" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
+light_color = Color(0.8784314, 0.36862746, 0, 1)
+omni_range = 11.0
+omni_attenuation = 1.0
+og_range = 11.0
+
+[node name="TorchBG9" parent="MID" instance=ExtResource("19_dr4cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.322735, 33.722275, 0)
+
+[node name="OmniLight3D" parent="MID/TorchBG9" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
+light_color = Color(0.8784314, 0.36862746, 0, 1)
+omni_range = 11.0
+omni_attenuation = 1.0
+og_range = 11.0
+
+[node name="TorchBG10" parent="MID" instance=ExtResource("19_dr4cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.813421, 25.273474, 0)
+
+[node name="OmniLight3D" parent="MID/TorchBG10" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
+light_color = Color(0.8784314, 0.36862746, 0, 1)
+omni_range = 11.0
+omni_attenuation = 1.0
+og_range = 11.0
+
+[node name="TorchBG11" parent="MID" instance=ExtResource("19_dr4cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.090498, 24.511528, 0)
+
+[node name="OmniLight3D" parent="MID/TorchBG11" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
+light_color = Color(0.8784314, 0.36862746, 0, 1)
+omni_range = 11.0
+omni_attenuation = 1.0
+og_range = 11.0
+
+[node name="TorchBG12" parent="MID" instance=ExtResource("19_dr4cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7253094, 34.178833, 0)
+
+[node name="OmniLight3D" parent="MID/TorchBG12" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
+light_color = Color(0.8784314, 0.36862746, 0, 1)
+omni_range = 11.0
+omni_attenuation = 1.0
+og_range = 11.0
+
+[node name="TorchBG3" parent="MID" instance=ExtResource("19_dr4cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.204147, 22.154375, 0)
+
+[node name="OmniLight3D" parent="MID/TorchBG3" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
+light_color = Color(0, 1, 0, 1)
+omni_range = 11.0
+omni_attenuation = 1.0
+og_range = 11.0
+
+[node name="TorchBG4" parent="MID" instance=ExtResource("19_dr4cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.742289, 13.826094, 0)
+
+[node name="OmniLight3D" parent="MID/TorchBG4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
+light_color = Color(0, 1, 0, 1)
+omni_range = 11.0
+omni_attenuation = 1.0
+og_range = 11.0
+
+[node name="TorchBG5" parent="MID" instance=ExtResource("19_dr4cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.742287, 34.826096, 0)
+
+[node name="OmniLight3D" parent="MID/TorchBG5" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
+light_color = Color(0, 1, 0, 1)
+omni_range = 11.0
+omni_attenuation = 1.0
+og_range = 11.0
+
+[node name="TorchBG2" parent="MID" instance=ExtResource("19_dr4cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.662308, 16.52144, 0)
+
+[node name="OmniLight3D" parent="MID/TorchBG2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
+light_color = Color(1, 0.2, 0.9411765, 1)
+omni_range = 11.0
+omni_attenuation = 1.0
+og_range = 11.0
+
 [node name="F1" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 script = ExtResource("11_tt6wm")
@@ -494,35 +614,25 @@ transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 50, 
 [node name="TimeImmuneField" parent="." instance=ExtResource("18_600tq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39, 23, 0)
 
-[node name="TorchBG" parent="." instance=ExtResource("19_dr4cp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 17, 7)
-
-[node name="OmniLight3D" parent="TorchBG" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.913805, -7.687805)
-light_color = Color(1, 0.5019608, 1, 1)
-light_energy = 10.357
-og_range = 11.0
-
-[node name="TorchBG2" parent="." instance=ExtResource("19_dr4cp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 17, 7)
-
-[node name="OmniLight3D" parent="TorchBG2" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.913805, -7.687805)
-light_color = Color(0.22696891, 0.8110671, 0.8952574, 1)
-light_energy = 5.0
-og_range = 11.0
-
-[node name="TorchBG3" parent="." instance=ExtResource("19_dr4cp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 31, 7)
-
-[node name="OmniLight3D" parent="TorchBG3" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.913805, -7.687805)
-light_color = Color(0.22745098, 0.8117647, 0, 1)
-og_range = 11.0
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dr4cp")
 
-[editable path="TorchBG"]
-[editable path="TorchBG2"]
-[editable path="TorchBG3"]
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25.104736)
+visible = false
+light_energy = 15.0
+editor_only = true
+omni_range = 114.552
+
+[editable path="MID/TorchBG"]
+[editable path="MID/TorchBG6"]
+[editable path="MID/TorchBG7"]
+[editable path="MID/TorchBG8"]
+[editable path="MID/TorchBG9"]
+[editable path="MID/TorchBG10"]
+[editable path="MID/TorchBG11"]
+[editable path="MID/TorchBG12"]
+[editable path="MID/TorchBG3"]
+[editable path="MID/TorchBG4"]
+[editable path="MID/TorchBG5"]
+[editable path="MID/TorchBG2"]

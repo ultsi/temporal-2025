@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxqabbx50e4i"]
+[gd_scene load_steps=7 format=3 uid="uid://dxqabbx50e4i"]
 
 [ext_resource type="Script" uid="uid://b1m8nhdwbwwje" path="res://entities/moving-platform/moving_platform.gd" id="1_qjf2r"]
+[ext_resource type="Shader" uid="uid://dgpa4gr4cbld8" path="res://entities/moving-platform/moving_platform.gdshader" id="2_4ba2q"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7mh32"]
 size = Vector3(4, 1, 2)
@@ -8,8 +9,9 @@ size = Vector3(4, 1, 2)
 [sub_resource type="BoxMesh" id="BoxMesh_7mh32"]
 size = Vector3(4, 1, 2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qjf2r"]
-albedo_color = Color(1, 1, 0.49019608, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aowro"]
+render_priority = 0
+shader = ExtResource("2_4ba2q")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ba2q"]
 albedo_color = Color(1, 0.09019608, 0.49019608, 1)
@@ -28,7 +30,7 @@ shape = SubResource("BoxShape3D_7mh32")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="BodyPivot/StaticBody3D"]
 mesh = SubResource("BoxMesh_7mh32")
-surface_material_override/0 = SubResource("StandardMaterial3D_qjf2r")
+surface_material_override/0 = SubResource("ShaderMaterial_aowro")
 
 [node name="EditorOnly" type="Node3D" parent="."]
 
