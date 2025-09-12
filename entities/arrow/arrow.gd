@@ -34,7 +34,7 @@ func _ready() -> void:
 	#replay_states.debug = true
 
 func shoot() -> void:
-	print("Shot arrow ", self, " at tick ", T.get_node_tick(self))
+	print("Shot arrow ", self, " at tick ", tick)
 	cancel()
 	reset()
 	_spawn_tick = T.global_tick
@@ -148,7 +148,7 @@ func after_tick() -> void:
 		show()
 
 
-func _on_tick(tick: int, _immune_tick := false) -> void:
+func _on_tick(_immune_tick := false) -> void:
 	# if !immune_tick && Replay.replay_node(self, tick):
 	# 	#print("Replaying arrow id {0} tick {1}".format([get_instance_id(), tick]))
 	# 	after_tick()

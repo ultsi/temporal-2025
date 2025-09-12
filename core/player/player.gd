@@ -84,10 +84,8 @@ var input_state := InputState.new()
 
 func _ready() -> void:
 	_spawn_pos = global_position
-	if replay_states.size > T.global_tick:
-		is_echo = true
-	else:
-		player = self
+	if !is_echo:
+		Player.player = self
 	
 	T.register_tickable(self)
 	_multimesh = multimesh_inst.multimesh
@@ -178,7 +176,7 @@ func populate_real_input_state() -> void:
 	input_state.direction = Input.get_vector("move_left", "move_right", "move_down", "move_up")
 
 
-func _on_tick(tick: int, immune_tick := false) -> void:
+func _on_tick(_immune_tick := false) -> void:
 	if is_echo:
 		Replay.replay_node(self, tick)
 		sprite.transparency = 0.9
@@ -252,7 +250,7 @@ func _on_tick(tick: int, immune_tick := false) -> void:
 		if input_state.dash_just_pressed && ready_to_dash:
 			do_dash(input_state.direction)
 
-		## REFACTOR
+		## IDEA
 		## bow.can_use() to be a part of the player
 		## bow not replayed
 		## arrow not replayed
@@ -260,8 +258,6 @@ func _on_tick(tick: int, immune_tick := false) -> void:
 		## maybe echo objects can be replayed
 		## like arrows could become echos as well with some skill
 		if input_state.attack_just_released && can_attack:
-			if is_echo:
-				print("Echo shoots why nothing happens???")
 			var action := bow.use_release(input_state.direction)
 			actions[action.anim] = action
 			_last_attack_tick = tick
@@ -304,11 +300,10 @@ func save_state(state: ReplayStates.State) -> void:
 
 
 func show_flux_past() -> void:
-	var our_tick := T.get_node_tick(self)
-	if T.global_tick >= our_tick:
+	if T.global_tick >= tick:
 		return
 
-	var forward := our_tick - T.global_tick
+	var forward := tick - T.global_tick
 	#print("We are currently {0} ticks forward in time".format([forward]))
 
 	var vis_inst := int(forward / 6.0) # 6.0 needs to be the same with snapped below

@@ -12,7 +12,6 @@ const MAX_FLUX_TICKS := 300 # 5 seconds ahead max
 
 class Tickable extends RefCounted:
 	var node: Node3D
-	var tick := 0
 	var flux_ticks_left := -1
 	var immune := false
 
@@ -30,7 +29,7 @@ func register_tickable(node: Node3D) -> void:
 		return
 	var tickable := Tickable.new()
 	tickable.node = node
-	tickable.tick = global_tick
+	tickable.node.tick = global_tick
 	_tickables[node.get_instance_id()] = tickable
 
 func enable_flux(node: Node3D, ticks := MAX_FLUX_TICKS) -> void:
@@ -91,20 +90,13 @@ func erase_tickable(id: int) -> void:
 	_flux_counter.erase(id)
 
 
-func get_node_tick(node: Node3D) -> int:
-	if !_tickables.has(node.get_instance_id()):
-		return global_tick
-	var tickable := _tickables[node.get_instance_id()]
-	return tickable.tick
-
-
 func reset_loop() -> void:
 	global_tick = 0
 	clear_flux()
 	clear_immune()
 	for id in _tickables:
 		var tickable := _tickables[id]
-		tickable.tick = 0
+		tickable.node.tick = 0
 
 
 const FLUX_SLOWDOWN := 2 ** 16 # 16 stage slowdown
@@ -133,20 +125,20 @@ func _physics_process(_delta: float) -> void:
 		if should_global_tick:
 			# normal case
 			time = global_tick * C.TIME_BETWEEN_TICKS
-			if tickable.tick <= global_tick:
-				tickable.tick = global_tick
-				tickable.node.call("_on_tick", tickable.tick)
+			if tickable.node.tick <= global_tick:
+				tickable.node.tick = global_tick
+				tickable.node.call("_on_tick")
 			elif tickable.immune:
-				tickable.node.call("_on_tick", tickable.tick, true)
+				tickable.node.call("_on_tick", true)
 		elif tickable.flux_ticks_left > 0:
-			tickable.tick += 1
-			tickable.node.call("_on_tick", tickable.tick)
+			tickable.node.tick += 1
+			tickable.node.call("_on_tick")
 			tickable.flux_ticks_left -= 1
 
 			if tickable.flux_ticks_left <= 0:
 				disable_flux.call_deferred(tickable.node)
 		elif tickable.immune:
-			tickable.node.call("_on_tick", tickable.tick, true)
+			tickable.node.call("_on_tick", true)
 
 
 	if should_global_tick:
