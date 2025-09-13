@@ -363,7 +363,7 @@ func _physics_process(_dt: float) -> void:
 	if Input.is_action_just_pressed("timepoint"):
 		T.clear_flux()
 
-	light.show()
+	#light.show()
 
 
 	if !is_echo && Input.is_action_just_pressed("echo"):

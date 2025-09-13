@@ -2,6 +2,7 @@ shader_type spatial;
 
 uniform sampler2D TILE_ATLAS : source_color, filter_nearest;
 
+#include "res://materials/shaders/lighting_test.gdshaderinc"
 varying vec2 start_uv;
 varying vec2 scale;
 varying float alpha;
@@ -37,19 +38,8 @@ void light() {
 	//DIFFUSE_LIGHT += clamp(dot(NORMAL, LIGHT), 0.0, 1.0) * ATTENUATION * LIGHT_COLOR;
 
 	if (!LIGHT_IS_DIRECTIONAL && alpha > 0.01) {
-		vec3 light_pos = (INV_VIEW_MATRIX * vec4(LIGHT_POS, 1.0)).xyz;
-		vec3 snapped_world_pos = round(world_pos * 4.0) /4.0;
-		light_pos = round(light_pos *4.0) / 4.0;
-		float light_length = distance(snapped_world_pos, light_pos);
-		float light_range = 1.0/LIGHT_RANGE;
-		light_length = 1.0-clamp(light_length, 0.0, light_range) / light_range;
-		vec3 light_normal = LIGHT;
-		if (light_normal.z < 0.0 && light_length >= 0.0) {
-			DIFFUSE_LIGHT += pow(light_length, 2.0) * LIGHT_COLOR;
-		} else {
-			DIFFUSE_LIGHT += clamp(dot(light_normal, NORMAL), 0.0, 1.0) * ATTENUATION * LIGHT_COLOR;
-		}
-
+		DIFFUSE_LIGHT += get_diffuse_light(INV_VIEW_MATRIX, world_pos, LIGHT_POS, LIGHT_RANGE, LIGHT, NORMAL, LIGHT_COLOR, ATTENUATION);
+		
 		/*vec3 light_normal = LIGHT;
 		if (light_normal.z < 0.0) {
 			light_normal.z = -light_normal.z;

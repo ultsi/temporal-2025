@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://yo8dg37fv1v7"]
+
+[ext_resource type="PackedScene" uid="uid://dejesb2wvjc5g" path="res://models/halfwall/halfwall.glb" id="1_aysyv"]
+
+[node name="halfwall" instance=ExtResource("1_aysyv")]
+
+[node name="halfwall" parent="." index="0"]
+transform = Transform3D(0.900514, 0, 0, 0, 1.91267, 0, 0, 0, 0.6, 0, 2, -5)

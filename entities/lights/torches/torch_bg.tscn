@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dhfpxfaq0ds0n"]
+[gd_scene load_steps=12 format=3 uid="uid://dhfpxfaq0ds0n"]
 
+[ext_resource type="Script" uid="uid://b6nu6wr0xxniy" path="res://entities/lights/torches/torch.gd" id="1_38gvx"]
 [ext_resource type="Script" uid="uid://h1td5nx2s88y" path="res://entities/lights/torches/torch_light.gd" id="1_boqul"]
 [ext_resource type="Script" uid="uid://dcj1idu18ttol" path="res://entities/lights/torches/time_particles.gd" id="2_8kqcb"]
 
@@ -44,6 +45,7 @@ cap_top = false
 cap_bottom = false
 
 [node name="TorchBG" type="Node3D"]
+script = ExtResource("1_38gvx")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.913805, -2)

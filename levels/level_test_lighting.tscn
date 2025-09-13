@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://bffbr0pfmykoc"]
+[gd_scene load_steps=51 format=4 uid="uid://bffbr0pfmykoc"]
 
 [ext_resource type="Script" uid="uid://8xooarj2vcae" path="res://core/level/level.gd" id="1_j7ej0"]
 [ext_resource type="TileSet" uid="uid://5ygslfk3v28r" path="res://materials/tiles/tileset.tres" id="2_dr4cp"]
@@ -19,6 +19,11 @@
 [ext_resource type="PackedScene" uid="uid://d17vyejdfa6sn" path="res://entities/spikes/spikes.tscn" id="17_7dah8"]
 [ext_resource type="PackedScene" uid="uid://c2d5rt8itx8nj" path="res://entities/time-immune-field/time_immune_field.tscn" id="18_600tq"]
 [ext_resource type="PackedScene" uid="uid://dhfpxfaq0ds0n" path="res://entities/lights/torches/torch_bg.tscn" id="19_dr4cp"]
+[ext_resource type="PackedScene" uid="uid://dlyepiwpndsbm" path="res://models/cog/cog.glb" id="20_vwn0c"]
+[ext_resource type="Material" uid="uid://b2npnklnp5cdb" path="res://materials/shaders/shader_test_lighting.tres" id="21_gswu0"]
+[ext_resource type="PackedScene" uid="uid://27i1t6lg2k0u" path="res://models/lamp/lamp.glb" id="22_hdfyx"]
+[ext_resource type="PackedScene" uid="uid://dyevga2eccmv5" path="res://models/rock/rock.glb" id="22_iyiyd"]
+[ext_resource type="Shader" uid="uid://bvbvihkxxf114" path="res://materials/shaders/lighting_test.gdshader" id="23_hdfyx"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_j7ej0"]
 transform_format = 1
@@ -131,6 +136,11 @@ shader = ExtResource("13_g1ae5")
 background_energy_multiplier = 0.0
 ambient_light_energy = 0.0
 tonemap_mode = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iyiyd"]
+render_priority = 0
+shader = ExtResource("23_hdfyx")
+shader_parameter/ALBEDO_COLOR = Color(0.53030515, 0.49569398, 0.4587738, 1)
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_j7ej0")
@@ -405,7 +415,7 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="Player" parent="MID" instance=ExtResource("10_5ebod")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.320171, 19.203466, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.89735, 21.274746, 0)
 
 [node name="TorchBG" parent="MID" instance=ExtResource("19_dr4cp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.182, 15.563999, 0)
@@ -413,9 +423,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.182, 15.563999, 0)
 [node name="OmniLight3D" parent="MID/TorchBG" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
 light_color = Color(0, 1, 1, 1)
-omni_range = 11.0
+omni_range = 5.0
 omni_attenuation = 1.0
+flicker = 0.06999999999999999
+og_energy = 2.0
 og_range = 11.0
+inverse_time = true
 
 [node name="TorchBG6" parent="MID" instance=ExtResource("19_dr4cp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.69206, 2.796092, 0)
@@ -423,9 +436,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.69206, 2.796092, 0)
 [node name="OmniLight3D" parent="MID/TorchBG6" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
 light_color = Color(0, 1, 1, 1)
-omni_range = 11.0
+omni_range = 5.0
 omni_attenuation = 1.0
+flicker = 0.06999999999999999
+og_energy = 2.0
 og_range = 11.0
+inverse_time = true
 
 [node name="TorchBG7" parent="MID" instance=ExtResource("19_dr4cp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3314323, 9.124495, 0)
@@ -433,9 +449,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3314323, 9.124495, 0)
 [node name="OmniLight3D" parent="MID/TorchBG7" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
 light_color = Color(0, 1, 1, 1)
-omni_range = 11.0
+omni_range = 5.0
 omni_attenuation = 1.0
+flicker = 0.06999999999999999
+og_energy = 2.0
 og_range = 11.0
+inverse_time = true
 
 [node name="TorchBG8" parent="MID" instance=ExtResource("19_dr4cp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.331432, 34.124496, 0)
@@ -443,9 +462,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.331432, 34.124496, 0)
 [node name="OmniLight3D" parent="MID/TorchBG8" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
 light_color = Color(0.8784314, 0.36862746, 0, 1)
-omni_range = 11.0
+omni_range = 5.0
 omni_attenuation = 1.0
+flicker = 0.06999999999999999
+og_energy = 2.0
 og_range = 11.0
+inverse_time = true
 
 [node name="TorchBG9" parent="MID" instance=ExtResource("19_dr4cp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.322735, 33.722275, 0)
@@ -453,9 +475,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.322735, 33.722275, 0)
 [node name="OmniLight3D" parent="MID/TorchBG9" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
 light_color = Color(0.8784314, 0.36862746, 0, 1)
-omni_range = 11.0
+omni_range = 5.0
 omni_attenuation = 1.0
+flicker = 0.06999999999999999
+og_energy = 2.0
 og_range = 11.0
+inverse_time = true
 
 [node name="TorchBG10" parent="MID" instance=ExtResource("19_dr4cp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.813421, 25.273474, 0)
@@ -463,9 +488,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.813421, 25.273474, 0)
 [node name="OmniLight3D" parent="MID/TorchBG10" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
 light_color = Color(0.8784314, 0.36862746, 0, 1)
-omni_range = 11.0
+omni_range = 5.0
 omni_attenuation = 1.0
+flicker = 0.06999999999999999
+og_energy = 2.0
 og_range = 11.0
+inverse_time = true
 
 [node name="TorchBG11" parent="MID" instance=ExtResource("19_dr4cp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.090498, 24.511528, 0)
@@ -473,9 +501,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.090498, 24.511528, 0)
 [node name="OmniLight3D" parent="MID/TorchBG11" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
 light_color = Color(0.8784314, 0.36862746, 0, 1)
-omni_range = 11.0
+omni_range = 5.0
 omni_attenuation = 1.0
+flicker = 0.06999999999999999
+og_energy = 2.0
 og_range = 11.0
+inverse_time = true
 
 [node name="TorchBG12" parent="MID" instance=ExtResource("19_dr4cp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7253094, 34.178833, 0)
@@ -483,9 +514,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7253094, 34.178833, 0)
 [node name="OmniLight3D" parent="MID/TorchBG12" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
 light_color = Color(0.8784314, 0.36862746, 0, 1)
-omni_range = 11.0
+omni_range = 5.0
 omni_attenuation = 1.0
+flicker = 0.06999999999999999
+og_energy = 2.0
 og_range = 11.0
+inverse_time = true
 
 [node name="TorchBG3" parent="MID" instance=ExtResource("19_dr4cp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.204147, 22.154375, 0)
@@ -493,9 +527,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.204147, 22.154375, 0)
 [node name="OmniLight3D" parent="MID/TorchBG3" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
 light_color = Color(0, 1, 0, 1)
-omni_range = 11.0
+omni_range = 5.0
 omni_attenuation = 1.0
+flicker = 0.06999999999999999
+og_energy = 2.0
 og_range = 11.0
+inverse_time = true
 
 [node name="TorchBG4" parent="MID" instance=ExtResource("19_dr4cp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.742289, 13.826094, 0)
@@ -503,9 +540,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.742289, 13.826094, 0)
 [node name="OmniLight3D" parent="MID/TorchBG4" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
 light_color = Color(0, 1, 0, 1)
-omni_range = 11.0
+omni_range = 5.0
 omni_attenuation = 1.0
+flicker = 0.06999999999999999
+og_energy = 2.0
 og_range = 11.0
+inverse_time = true
 
 [node name="TorchBG5" parent="MID" instance=ExtResource("19_dr4cp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.742287, 34.826096, 0)
@@ -513,9 +553,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.742287, 34.826096, 0)
 [node name="OmniLight3D" parent="MID/TorchBG5" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
 light_color = Color(0, 1, 0, 1)
-omni_range = 11.0
+omni_range = 5.0
 omni_attenuation = 1.0
+flicker = 0.06999999999999999
+og_energy = 2.0
 og_range = 11.0
+inverse_time = true
 
 [node name="TorchBG2" parent="MID" instance=ExtResource("19_dr4cp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.662308, 16.52144, 0)
@@ -523,9 +566,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.662308, 16.52144, 0)
 [node name="OmniLight3D" parent="MID/TorchBG2" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08078003, 1.2917519, -2)
 light_color = Color(1, 0.2, 0.9411765, 1)
-omni_range = 11.0
+omni_range = 5.0
 omni_attenuation = 1.0
+flicker = 0.06999999999999999
+og_energy = 2.0
 og_range = 11.0
+inverse_time = true
 
 [node name="F1" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
@@ -624,6 +670,26 @@ light_energy = 15.0
 editor_only = true
 omni_range = 114.552
 
+[node name="cog" parent="." instance=ExtResource("20_vwn0c")]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.76379603, -0.6454576, 0, 0.6454577, 0.763796, 17.012325, 14.047661, 0)
+
+[node name="Cog" parent="cog" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.9802322e-08, 0, -2.9802322e-08, 1, 0, -0.51883984, -0.61396503)
+surface_material_override/0 = ExtResource("21_gswu0")
+
+[node name="rock" parent="." instance=ExtResource("22_iyiyd")]
+transform = Transform3D(1.5365671, 0, 1.2802194, 0, 2, 0, -1.2802194, 0, 1.5365671, 11.110543, 8.243872, 0)
+
+[node name="Rock" parent="rock" index="0"]
+transform = Transform3D(0.9968607, -0.049714744, -0.061623484, 0.079133876, 0.5998676, 0.79617625, -0.0026156008, -0.79855365, 0.6019187, 5.8087726, 1.7779241, 3.6029909)
+surface_material_override/0 = ExtResource("21_gswu0")
+
+[node name="lamp" parent="." instance=ExtResource("22_hdfyx")]
+transform = Transform3D(1.5365671, 0, 1.2802194, 0, 2, 0, -1.2802194, 0, 1.5365671, 11.110543, 8.243872, 0)
+
+[node name="Lamp" parent="lamp" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_iyiyd")
+
 [editable path="MID/TorchBG"]
 [editable path="MID/TorchBG6"]
 [editable path="MID/TorchBG7"]
@@ -636,3 +702,6 @@ omni_range = 114.552
 [editable path="MID/TorchBG4"]
 [editable path="MID/TorchBG5"]
 [editable path="MID/TorchBG2"]
+[editable path="cog"]
+[editable path="rock"]
+[editable path="lamp"]

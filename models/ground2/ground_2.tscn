@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgmu7ae81ixhi"]
+
+[ext_resource type="PackedScene" uid="uid://dxkpfj4qq5v2f" path="res://models/ground2/ground2.blend" id="1_1a5v0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fnbpr"]
+
+[node name="Ground2" type="Node3D"]
+
+[node name="ground2" parent="." instance=ExtResource("1_1a5v0")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_fnbpr")

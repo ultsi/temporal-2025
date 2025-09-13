@@ -1,12 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://d17vyejdfa6sn"]
 
 [ext_resource type="Script" uid="uid://bh5unm0tkwm6p" path="res://entities/spikes/spikes.gd" id="1_fw5vh"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rpmo7"]
-albedo_color = Color(0.6584154, 0.5189542, 0.529351, 1)
+[ext_resource type="Material" uid="uid://b2npnklnp5cdb" path="res://materials/shaders/shader_test_lighting.tres" id="2_nohny"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_fw5vh"]
-material = SubResource("StandardMaterial3D_rpmo7")
+material = ExtResource("2_nohny")
 top_radius = 1.0
 bottom_radius = 0.01
 radial_segments = 4

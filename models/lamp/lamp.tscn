@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://5arn5hlb24q5"]
+
+[ext_resource type="PackedScene" uid="uid://cidiv16bbosub" path="res://models/lamp/lamp.blend" id="1_02tqf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ahct3"]
+emission_enabled = true
+emission = Color(1, 0.566667, 0, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_bjufg"]
+material = SubResource("StandardMaterial3D_ahct3")
+radius = 0.9
+height = 0.9
+radial_segments = 4
+rings = 2
+is_hemisphere = true
+
+[node name="Lamp" type="Node3D"]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.76914, 4.02954)
+visible = false
+light_color = Color(1, 0.566667, 0, 1)
+light_energy = 5.0
+shadow_enabled = true
+omni_range = 13.026
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 5.99624, 2.53245)
+mesh = SubResource("SphereMesh_bjufg")
+skeleton = NodePath("")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 6.02828, 2.53245)
+layers = 2049
+light_color = Color(1, 0.819608, 0, 1)
+shadow_enabled = true
+spot_range = 15.0
+spot_attenuation = 0.1
+spot_angle = 44.21
+
+[node name="lamp" parent="." instance=ExtResource("1_02tqf")]
+transform = Transform3D(3, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="CollisionShape3D" parent="lamp/Lamp/StaticBody3D" index="0"]
+disabled = true
+
+[editable path="lamp"]

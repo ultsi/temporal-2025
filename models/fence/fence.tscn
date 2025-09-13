@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://b05uiyw7415ht"]
+
+[ext_resource type="PackedScene" uid="uid://bh82hhlbyemgs" path="res://models/fence/fence.blend" id="1_mjx8f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1s30f"]
+albedo_color = Color(1, 0.935, 0.87, 1)
+
+[node name="Fence" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="fence" parent="." instance=ExtResource("1_mjx8f")]
+
+[node name="Plane_001" parent="fence" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_1s30f")
+
+[node name="Plane_002" parent="fence" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_1s30f")
+
+[node name="Plane_003" parent="fence" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_1s30f")
+
+[node name="Cylinder_001" parent="fence" index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_1s30f")
+
+[editable path="fence"]
