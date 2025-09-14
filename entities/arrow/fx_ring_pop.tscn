@@ -9,11 +9,11 @@ size = Vector2(6, 6)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nr4fd"]
 render_priority = 0
 shader = ExtResource("1_x0m3l")
-shader_parameter/START_TIME = -0.739
-shader_parameter/DURATION = 0.50000002375
-shader_parameter/START_COLOR = Color(3.5660536, 0, 0.91445047, 1)
-shader_parameter/END_COLOR = Color(3.2944162, 3.2944162, 0, 1)
-shader_parameter/PROGRESS = 1.0
+shader_parameter/START_TIME = -0.136
+shader_parameter/DURATION = 1.0000000475
+shader_parameter/START_COLOR = Color(4.415934, 3.3564708, 0, 1)
+shader_parameter/END_COLOR = Color(3.2152095, 0, 4.415934, 1)
+shader_parameter/PROGRESS = 0.0
 shader_parameter/WIDTH = 0.2210000104975
 
 [node name="FXRingPop" type="MeshInstance3D"]

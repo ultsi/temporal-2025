@@ -15,8 +15,8 @@ static func is_tile_pos_out_of_bounds(pos: Vector2i) -> bool:
 static func time_since_tick_ms(tick: int) -> int:
 	return int(float(T.global_tick - tick) / C.TICKS_PER_SECOND * 1000.0)
 
-static func tick_from_now(time: float) -> int:
-	return T.global_tick + int(time * C.TICKS_PER_SECOND)
+static func tick_from_now(time: float) -> float:
+	return T.global_tick + time * C.TICKS_PER_SECOND
 
-static func tick_to_time(tick: int) -> float:
+static func tick_to_time(tick: float) -> float:
 	return tick * C.TIME_BETWEEN_TICKS

@@ -18,8 +18,12 @@ class_name Level extends Node3D
 @export_tool_button("Build level")
 var build_tiles := func() -> void:
 	if Engine.is_editor_hint() && is_inside_tree():
+		if name == "Level":
+			printerr("Name the level something else than Level!")
+			return
 		await populate_tiles()
-		#await take_screenshot()
+		await take_screenshot()
+
 
 #endregion
 
@@ -774,36 +778,41 @@ func populate_tiles() -> void:
 		populate_tiling_system_for_zgroup(zgroup, free_depth_xy_lookup)
 	print("Populated all tiles in %s ms" % (Time.get_ticks_msec() - start))
 
-# func take_screenshot() -> void:
-# 	## TAKE SCREENSHOT
-# 	#Append mainscene 
-# 	if scene_file_path.is_empty():
-# 		printerr("Not taking screenshot, save the level first!")
-# 		return
-# 	var resource: PackedScene = load("res://core/autoloads/2_game/camera_and_visuals/camera_and_visuals.tscn")
-# 	var camera_and_visuals: CameraAndVisuals = resource.instantiate()
-# 	add_child(camera_and_visuals)
-# 	camera_and_visuals.owner = self
+#region SCREENSHOT
 
-# 	Temporal.reset()
+func take_screenshot() -> void:
+	## TAKE SCREENSHOT
+	#Append mainscene 
+	if scene_file_path.is_empty():
+		printerr("Not taking screenshot, save the level first!")
+		return
+	var resource: PackedScene = load("res://core/autoloads/2_g/camera_and_visuals.tscn")
+	var camera_and_visuals: Node3D = resource.instantiate()
+	add_child(camera_and_visuals)
+	camera_and_visuals.owner = self
 
-# 	if !camera_and_visuals.has_node("Screenshot"):
-# 		return
+	if !camera_and_visuals.has_node("MainCamera/Screenshot"):
+		return
 
-# 	var dir_light := camera_and_visuals.get_node("DirectionalLights/DirectionalLight3D") as DirectionalLight3D
-# 	dir_light.light_energy = 0.1
+	#var dir_light := camera_and_visuals.get_node("DirectionalLights/DirectionalLight3D") as DirectionalLight3D
+	#dir_light.light_energy = 0.1
 
-# 	var viewport: SubViewport = camera_and_visuals.get_node("Screenshot")
+	var viewport: SubViewport = camera_and_visuals.get_node("MainCamera/Screenshot")
 	
-# 	await get_tree().physics_frame
-# 	await RenderingServer.frame_pre_draw
-# 	await RenderingServer.frame_post_draw
-# 	var texture := viewport.get_texture()
-# 	var image := texture.get_image().get_region(Rect2i(Vector2i(0, 4), Vector2i(640, 352)))
-# 	print("saved screenshot to " + get_level_preview_filename())
-# 	image.save_png(get_level_preview_filename())
+	await get_tree().physics_frame
+	await RenderingServer.frame_pre_draw
+	await RenderingServer.frame_post_draw
+	var texture := viewport.get_texture()
+	var image := texture.get_image() # .get_region(Rect2i(Vector2i(0, 4), Vector2i(640, 352)))
+	print("saved screenshot to " + get_level_preview_filename())
+	image.save_png(get_level_preview_filename())
 
-# 	camera_and_visuals.queue_free()
+	camera_and_visuals.queue_free()
 
 
 #endregion
+
+func _get_configuration_warnings() -> PackedStringArray:
+	if name == "Level":
+		return ["Using default name. Name the Level more descriptively"]
+	return []

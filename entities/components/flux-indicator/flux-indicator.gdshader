@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode unshaded;
 
 global uniform float TIME_SYNCED = 0.0;
 uniform float START_TIME = 0.0;
@@ -33,14 +34,12 @@ void fragment() {
 		if (progress < 0.2) {
 			ALPHA = progress*5.0;
 		} else {
-			ALPHA = 1.0-progress;
-		}
-		if (ALPHA > 1.0) {
-			ALBEDO = vec3(1.0, 1.0, 1.0);
+			//ALPHA = 1.0-progress;
 		}
 	} else {
 		ALPHA = 0.0;
 	}
+	ALPHA = clamp(ALPHA, 0.0, 0.01);
 }
 
 //void light() {

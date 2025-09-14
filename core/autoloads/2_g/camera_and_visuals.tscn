@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhqswgxgvwak3"]
+
+[ext_resource type="Script" uid="uid://dyhks62txkih" path="res://core/autoloads/2_g/camera_and_visuals.gd" id="1_d2k7s"]
+
+[sub_resource type="Environment" id="Environment_0hn73"]
+background_energy_multiplier = 0.0
+ambient_light_energy = 0.0
+tonemap_mode = 4
+
+[node name="CameraAndVisuals" type="Node3D"]
+script = ExtResource("1_d2k7s")
+
+[node name="MainCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 22, 20)
+projection = 1
+current = true
+size = 44.0
+
+[node name="Screenshot" type="SubViewport" parent="MainCamera"]
+size = Vector2i(640, 360)
+render_target_clear_mode = 1
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="MainCamera/Screenshot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 22, 20)
+projection = 1
+size = 44.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0hn73")

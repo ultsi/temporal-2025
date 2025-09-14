@@ -1,14 +1,14 @@
 @tool
 extends Node3D
 
-var immune_tick := 0
-var global_tick := 0
-var prev_tick := 0
+var immune_tick := 0.0
+var global_tick := 0.0
+var prev_tick := 0.0
 var time := 0.0
 var timepoint_tick := 0
 
 
-const MAX_FLUX_TICKS := 300 # 5 seconds ahead max
+const MAX_FLUX_TICKS := 600.0 # 10 seconds ahead max
 
 class Tickable extends RefCounted:
 	var node: Node3D
@@ -110,45 +110,43 @@ func _physics_process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 
+	RenderingServer.global_shader_parameter_set("TIME_SYNCED", Time.get_ticks_msec() / 1000.0)
+
 	immune_tick += 1
 
 	var are_flux_objects := _flux_counter.size() > 0
 
-	var should_global_tick := !are_flux_objects || _next_flux_slowdown_tick < immune_tick && _next_flux_tick_plus < FLUX_SLOWDOWN
+	var global_tick_increment := 1.0 if !are_flux_objects else 0.1
 
 	for id in _tickables:
 		var tickable := _tickables[id]
 		if tickable.node == null || tickable.node.is_queued_for_deletion():
 			erase_tickable(id)
 			continue
-
-		if should_global_tick:
-			# normal case
-			time = global_tick * C.TIME_BETWEEN_TICKS
-			if tickable.node.tick <= global_tick:
-				tickable.node.tick = global_tick
-				tickable.node.call("_on_tick")
-			elif tickable.immune:
-				tickable.node.call("_on_tick", true)
-		elif tickable.flux_ticks_left > 0:
-			tickable.node.tick += 1
-			tickable.node.call("_on_tick")
+	
+		if tickable.flux_ticks_left > 0:
+			tickable.node.tick += 1.0
+			tickable.node.call("_on_tick", 1.0)
 			tickable.flux_ticks_left -= 1
 
 			if tickable.flux_ticks_left <= 0:
 				disable_flux.call_deferred(tickable.node)
 		elif tickable.immune:
-			tickable.node.call("_on_tick", true)
+			tickable.node.call("_on_tick", 1.0, true)
+		else:
+			if tickable.node.tick <= global_tick:
+				tickable.node.tick = global_tick
+				tickable.node.call("_on_tick", global_tick_increment)
+			else:
+				tickable.node.tick += 0.1
+				tickable.node.call("_on_tick", 0.1)
 
 
-	if should_global_tick:
-		prev_tick = global_tick
-		global_tick += 1
+	prev_tick = global_tick
+	global_tick += global_tick_increment
+	if !are_flux_objects && global_tick_increment == 1.0:
+		global_tick = round(global_tick)
+	time = global_tick * C.TIME_BETWEEN_TICKS
 
 	if !are_flux_objects:
 		_next_flux_tick_plus = 1
-
-	if are_flux_objects && _next_flux_tick_plus < FLUX_SLOWDOWN && _next_flux_slowdown_tick < immune_tick:
-		print("Slowing down by {0}".format([_next_flux_tick_plus]))
-		_next_flux_slowdown_tick = immune_tick + _next_flux_tick_plus
-		_next_flux_tick_plus *= 2

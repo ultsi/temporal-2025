@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6qtmvikgbop5"]
+
+[ext_resource type="PackedScene" uid="uid://bhqswgxgvwak3" path="res://core/autoloads/2_g/camera_and_visuals.tscn" id="1_x3enb"]
+
+[node name="G" type="Node3D"]
+
+[node name="CameraAndVisuals" parent="." instance=ExtResource("1_x3enb")]

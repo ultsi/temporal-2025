@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cu3pof1b8mw56"]
+
+[ext_resource type="Shader" uid="uid://djunxc8edlk1e" path="res://entities/components/flux-indicator/flux-indicator.gdshader" id="1_bvdwq"]
+[ext_resource type="Script" uid="uid://b4ot15yhq71bx" path="res://entities/components/flux-indicator/flux_indicator.gd" id="2_bvdwq"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_ke763"]
+size = Vector2(6, 6)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nr4fd"]
+render_priority = 0
+shader = ExtResource("1_bvdwq")
+shader_parameter/START_TIME = -0.136
+shader_parameter/DURATION = 1.0000000475
+shader_parameter/START_COLOR = Color(1, 1, 0, 1)
+shader_parameter/END_COLOR = Color(0.3181684, 4.415934, 0, 1)
+shader_parameter/PROGRESS = 0.1200000057
+shader_parameter/WIDTH = 0.2210000104975
+
+[node name="FluxIndicator" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_ke763")
+surface_material_override/0 = SubResource("ShaderMaterial_nr4fd")
+script = ExtResource("2_bvdwq")

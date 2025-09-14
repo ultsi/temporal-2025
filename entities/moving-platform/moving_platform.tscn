@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dxqabbx50e4i"]
+[gd_scene load_steps=8 format=3 uid="uid://dxqabbx50e4i"]
 
 [ext_resource type="Script" uid="uid://b1m8nhdwbwwje" path="res://entities/moving-platform/moving_platform.gd" id="1_qjf2r"]
 [ext_resource type="Shader" uid="uid://dgpa4gr4cbld8" path="res://entities/moving-platform/moving_platform.gdshader" id="2_4ba2q"]
+[ext_resource type="PackedScene" uid="uid://cu3pof1b8mw56" path="res://entities/components/flux-indicator/flux-indicator.tscn" id="3_aowro"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7mh32"]
 size = Vector3(4, 1, 2)
@@ -12,6 +13,7 @@ size = Vector3(4, 1, 2)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aowro"]
 render_priority = 0
 shader = ExtResource("2_4ba2q")
+shader_parameter/ALBEDO_COLOR = Color(1, 1, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ba2q"]
 albedo_color = Color(1, 0.09019608, 0.49019608, 1)
@@ -31,6 +33,11 @@ shape = SubResource("BoxShape3D_7mh32")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="BodyPivot/StaticBody3D"]
 mesh = SubResource("BoxMesh_7mh32")
 surface_material_override/0 = SubResource("ShaderMaterial_aowro")
+
+[node name="FluxIndicator" parent="BodyPivot/StaticBody3D" node_paths=PackedStringArray("tick_node") instance=ExtResource("3_aowro")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+skeleton = NodePath("../..")
+tick_node = NodePath("../../..")
 
 [node name="EditorOnly" type="Node3D" parent="."]
 

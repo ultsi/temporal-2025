@@ -12,7 +12,7 @@ static func _get_replay_states(node: Node3D) -> ReplayStates:
 
 	return null
 
-static func save_replay_state(node: Node3D, tick := -1) -> void:
+static func save_replay_state(node: Node3D, tick := -1.0) -> void:
 	var replay_states := _get_replay_states(node)
 	if !replay_states:
 		print("Unable to save replay state as there's no replay_states for node ", node)
@@ -32,10 +32,10 @@ static func save_replay_state(node: Node3D, tick := -1) -> void:
 	if node.has_method("save_state"):
 		node.call("save_state", state)
 
-	replay_states.encode_tick(state, tick)
+	replay_states.encode_tick(state, roundi(tick))
 
 
-static func replay_node(node: Node3D, tick := -1) -> bool:
+static func replay_node(node: Node3D, tick := -1.0) -> bool:
 	var replay_states := _get_replay_states(node)
 	if !replay_states:
 		print("Unable to replay node as there's no replay_states for node ", node)
@@ -47,7 +47,7 @@ static func replay_node(node: Node3D, tick := -1) -> bool:
 	if replay_states.size <= T.global_tick:
 		return false
 
-	var state := replay_states.decode_tick_at(tick)
+	var state := replay_states.decode_tick_at(roundi(tick))
 	if !state || !state.valid:
 		return false
 
@@ -66,7 +66,7 @@ static func replay_node(node: Node3D, tick := -1) -> bool:
 	
 	return true
 
-static func get_position_at(node: Node3D, tick := -1) -> Vector3:
+static func get_position_at(node: Node3D, tick := -1.0) -> Vector3:
 	var replay_states := _get_replay_states(node)
 	if !replay_states:
 		print("Unable to get position for node as there's no replay_states for node ", node)
@@ -78,7 +78,7 @@ static func get_position_at(node: Node3D, tick := -1) -> Vector3:
 	if replay_states.size <= T.global_tick:
 		return Vector3.ZERO
 
-	var state := replay_states.decode_tick_at(tick)
+	var state := replay_states.decode_tick_at(roundi(tick))
 	if !state || !state.valid:
 		return Vector3.ZERO
 

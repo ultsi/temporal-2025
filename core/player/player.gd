@@ -17,7 +17,7 @@ class_name Player extends CharacterBody3D
 static var player: Player
 
 var health := 100
-const MAX_ECHOS := 1
+const MAX_ECHOS := 0
 var echos: Array[Player] = []
 var replay_states := ReplayStates.new(9, 0, 0, 1)
 
@@ -91,7 +91,7 @@ func _ready() -> void:
 	_multimesh = multimesh_inst.multimesh
 	_multimesh.instance_count = 0
 	_multimesh.use_colors = true
-	_multimesh.instance_count = 50
+	_multimesh.instance_count = 100
 	_multimesh.visible_instance_count = 0
 
 
@@ -152,7 +152,7 @@ func do_jump() -> void:
 
 
 func do_dash(dir: Vector2) -> void:
-	_last_dash_tick = T.global_tick
+	_last_dash_tick = roundi(T.global_tick)
 	var angle := dir.angle()
 	var snapped_angle := roundf(angle / (PI / 8.0)) * (PI / 8.0)
 	var snapped_direction := Vector2(cos(snapped_angle), sin(snapped_angle))
@@ -176,7 +176,7 @@ func populate_real_input_state() -> void:
 	input_state.direction = Input.get_vector("move_left", "move_right", "move_down", "move_up")
 
 
-func _on_tick(_immune_tick := false) -> void:
+func _on_tick(dt: float, _immune_tick := false) -> void:
 	if is_echo:
 		Replay.replay_node(self, tick)
 		sprite.transparency = 0.9
@@ -191,8 +191,6 @@ func _on_tick(_immune_tick := false) -> void:
 		input_state.direction = Vector2.ZERO
 	elif input_state.direction != Vector2.ZERO:
 		_face_dir(input_state.direction)
-
-	sprite.transparency = 0.0
 
 	name_label.text = str(replay_states.size)
 	var time := Time.get_ticks_msec()
@@ -228,7 +226,7 @@ func _on_tick(_immune_tick := false) -> void:
 
 		if !is_on_floor():
 			if !gravity_after_dash:
-				velocity.y -= GRAVITY * C.TIME_BETWEEN_TICKS
+				velocity.y -= GRAVITY * C.TIME_BETWEEN_TICKS * tick_dt
 				if input_state.direction.length_squared() < 0.01:
 					velocity.x *= 0.5
 
@@ -240,7 +238,7 @@ func _on_tick(_immune_tick := false) -> void:
 					do_jump()
 					actions["jump"] = AnimAction.new("jump")
 		else:
-			_last_on_floor_tick = tick
+			_last_on_floor_tick = roundi(tick)
 			if !is_in_dash && input_state.direction.length_squared() < 0.01 || attack_mode:
 				velocity.x *= 0.1
 			if input_state.jump_just_pressed:
@@ -260,17 +258,17 @@ func _on_tick(_immune_tick := false) -> void:
 		if input_state.attack_just_released && can_attack:
 			var action := bow.use_release(input_state.direction)
 			actions[action.anim] = action
-			_last_attack_tick = tick
+			_last_attack_tick = roundi(tick)
 			
 
 		if Input.is_action_just_pressed("attack2"):
-			_last_attack2_tick = tick
+			_last_attack2_tick = roundi(tick)
 			# no attack2 for now
 
 
 	if abs(global_position.x - _last_step_pos.x) > 2 && is_on_floor() && Utils.time_since_tick_ms(_last_step_tick) > 200:
 		_last_step_pos = global_position
-		_last_step_tick = tick
+		_last_step_tick = roundi(tick)
 		audio_walk.play()
 
 		if !is_echo:
@@ -279,7 +277,10 @@ func _on_tick(_immune_tick := false) -> void:
 	#print("saving replay state ", tick)
 	Replay.save_replay_state(self, tick)
 	
+	var old_vel := velocity
+	velocity *= tick_dt
 	move_and_slide()
+	velocity = old_vel
 	animate(actions)
 
 
@@ -330,7 +331,7 @@ func die() -> void:
 		return
 	print("Player died at ", T.global_tick)
 	T.reset_loop()
-	if MAX_ECHOS >= 0:
+	if MAX_ECHOS > 0:
 		if echos.size() >= MAX_ECHOS:
 			var echo: Player = echos.pop_front()
 			print("freeing previous echo {0}, size now {1}".format([echo, echos.size()]))
@@ -350,6 +351,8 @@ func die() -> void:
 		_last_dash_tick = -1000
 		_last_hurt_at = -1000
 		_last_on_floor_tick = -1000
+	else:
+		Replay.replay_node(self, T.global_tick)
 
 
 func take_damage(_damage: int) -> void:

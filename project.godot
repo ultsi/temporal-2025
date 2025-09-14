@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 T="*res://core/autoloads/1_t/1_t.gd"
+G="*res://core/autoloads/2_g/g.tscn"
 
 [debug]
 
@@ -109,4 +110,8 @@ T_MAX_TIME={
 PLAYER_POS={
 "type": "vec3",
 "value": Vector3(0, 0, 0)
+}
+TIME_SYNCED={
+"type": "float",
+"value": 0.0
 }

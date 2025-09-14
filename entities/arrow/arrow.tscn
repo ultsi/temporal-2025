@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cijmirv2qj"]
+[gd_scene load_steps=12 format=3 uid="uid://cijmirv2qj"]
 
 [ext_resource type="Texture2D" uid="uid://bw625ytqmp8q7" path="res://materials/tiny-rpg-proto-assets2/Characters(100x100)/Soldier/Arrow(projectile)/Arrow01(100x100).png" id="1_pro7u"]
 [ext_resource type="Script" uid="uid://bvwdbnqspobs" path="res://entities/arrow/arrow.gd" id="1_tlan0"]
 [ext_resource type="PackedScene" uid="uid://bng43epq0ha10" path="res://entities/arrow/arrow_hit_world.tscn" id="4_hv62s"]
 [ext_resource type="AudioStream" uid="uid://pu1l83w5eda" path="res://sound/flux/flux_on.ogg" id="4_oteb5"]
 [ext_resource type="AudioStream" uid="uid://cjf0harfxmeuq" path="res://sound/flux/flux_off.ogg" id="5_oteb5"]
+[ext_resource type="PackedScene" uid="uid://c3w7qt3q03gip" path="res://entities/arrow/fx_ring_pop.tscn" id="6_nfrsj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_sxu4w"]
 radius = 5.0
@@ -70,3 +71,6 @@ volume_db = 60.0
 [node name="AudioFluxOff" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_nfrsj")
 volume_db = 60.0
+
+[node name="FXRingPop" parent="." instance=ExtResource("6_nfrsj")]
+duration = 1.0

@@ -69,7 +69,7 @@ func _get_pos_at_time(time: float) -> Vector3:
 
 	return start_pos + phase * dir * target_pos
 
-func _on_tick(_immune_tick := false) -> void:
+func _on_tick(_dt: float, _immune_tick := false) -> void:
 	if !enabled:
 		return
 

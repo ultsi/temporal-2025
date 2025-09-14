@@ -7,6 +7,7 @@ class_name Arrow extends Node3D
 @onready var audio_flux_on := $AudioFluxOn as AudioStreamPlayer3D
 @onready var audio_flux_off := $AudioFluxOff as AudioStreamPlayer3D
 @onready var hurt_area := $HurtArea as Area3D
+@onready var fx_ring_pop := $FXRingPop as FXRingPop
 
 var impulse := 50.0
 
@@ -112,7 +113,9 @@ func _hit_staticbody(body: Node3D) -> void:
 		var platform: MovingPlatform = body.get_meta("moving_platform")
 		T.enable_flux(platform)
 		audio_flux_on.play()
-		
+		fx_ring_pop.play()
+		sprite.pixel_size = 0.2
+			
 	_hit.call_deferred(body)
 	
 func _hit_player(plr: Player) -> void:
@@ -120,6 +123,8 @@ func _hit_player(plr: Player) -> void:
 	audio_flux_on.play()
 
 	_hit.call_deferred(plr)
+	fx_ring_pop.play()
+	sprite.pixel_size = 0.2
 
 func _hit(body: Node3D) -> void:
 	audio_hit.play()
@@ -148,7 +153,7 @@ func after_tick() -> void:
 		show()
 
 
-func _on_tick(_immune_tick := false) -> void:
+func _on_tick(dt: float, _immune_tick := false) -> void:
 	# if !immune_tick && Replay.replay_node(self, tick):
 	# 	#print("Replaying arrow id {0} tick {1}".format([get_instance_id(), tick]))
 	# 	after_tick()
